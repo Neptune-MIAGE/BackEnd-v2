@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # "apps" Django à ajouter ici, format : "app,"
+    "hello",
 ]
 
 MIDDLEWARE = [
