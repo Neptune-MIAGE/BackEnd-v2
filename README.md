@@ -1,6 +1,6 @@
 # BackEnd MoodMap
 
-[![Java CI Gradle build and test](https://github.com/Neptune-MIAGE/BackEnd-v2/actions/workflows/gradle_build.yml/badge.svg?branch=main)](https://github.com/Neptune-MIAGE/BackEnd-v2/actions/workflows/gradle_build.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Neptune-MIAGE_BackEnd-v2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Neptune-MIAGE_BackEnd-v2)
+[![Python CI Django build and test](https://github.com/Neptune-MIAGE/BackEnd-v2/actions/workflows/django.yml/badge.svg?branch=main)](https://github.com/Neptune-MIAGE/BackEnd-v2/actions/workflows/django.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Neptune-MIAGE_BackEnd-v2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Neptune-MIAGE_BackEnd-v2)
 ![Latest release](https://img.shields.io/github/v/release/Neptune-MIAGE/BackEnd-v2)
 
 
