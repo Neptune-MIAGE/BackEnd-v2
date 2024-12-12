@@ -24,3 +24,11 @@ python manage.py runserver
 
 Voila toutes les dépendances installées et le serveur lancé à l'adresse http://127.0.0.1:8000/
 
+# Pour Build la doc
+
+Depuis la racine du projet en étant dans un (env) :
+```
+cd docs
+sphinx-apidoc -o . ..
+make html
+```
