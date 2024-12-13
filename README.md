@@ -9,18 +9,32 @@
 # Installation du projet
 
 1. Cloner le dépot
-2. Se placer a la racine dans le terminal et lancer la commande suivante pour lancer l'environnement :
-```
+2. Se placer a la racine dans le terminal et lancer les commandes suivantes pour créer et lancer l'environnement :
+```python
+python3 -m venv env # si ça ne fonctionne pas -> python -m venv env
+
+# MacOS & Linux :
 source env/bin/activate
+
+# Windows :
+env\scripts\activate
 ```
 3. Une fois l'environnement lancé, faire la commande suivante pour installer les dépendances :
-```
+```python
 pip install -r requirements.txt
 ```
 5. Ensuite, se placer dans /moodapp/ et lancer la commande suivante :
-```
+```python
 python manage.py runserver
 ```
 
 Voila toutes les dépendances installées et le serveur lancé à l'adresse http://127.0.0.1:8000/
 
+# Pour Build la doc
+
+Depuis la racine du projet en étant dans un (env) :
+```
+cd docs
+sphinx-apidoc -o . ..
+make html
+```
