@@ -10,16 +10,16 @@
 
 1. Cloner le dépot
 2. Se placer a la racine dans le terminal et lancer les commandes suivantes pour créer et lancer l'environnement :
-```
+```python
 python3 -m venv env # si ça ne fonctionne pas -> python -m venv env
 source env/bin/activate
 ```
 3. Une fois l'environnement lancé, faire la commande suivante pour installer les dépendances :
-```
+```python
 pip install -r requirements.txt
 ```
 5. Ensuite, se placer dans /moodapp/ et lancer la commande suivante :
-```
+```python
 python manage.py runserver
 ```
 
