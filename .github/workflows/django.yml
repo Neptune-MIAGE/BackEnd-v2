@@ -1,0 +1,36 @@
+name: Django CI
+
+on:                                    # mot clé pour QUAND l'action sera déclenché
+  push:                                # déclendhé quand on push
+    branches: [ "main", "develop" ]    # uniquement les push de main et develop
+  pull_request:
+    branches: [ "main" ]               # déclenché quand on pull-request
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest        # tourne sur dernière version ubuntu
+    permissions:
+      contents: read              # lire le contenu (code)
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    # Build project
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Test project
+    - name: Run Tests
+      run: |
+        python manage.py test

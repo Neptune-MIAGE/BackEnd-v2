@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'moods',
     
     # "apps" Django à ajouter ici, format : "app,"
+    "hello",
 ]
 
 MIDDLEWARE = [
