@@ -18,6 +18,10 @@ source env/bin/activate
 
 # Windows :
 env\scripts\activate
+
+
+# Pour quitter l'environnement il faut faire la commande :
+deactivate
 ```
 3. Une fois l'environnement lancé, faire la commande suivante pour installer les dépendances :
 ```python
