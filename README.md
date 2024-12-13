@@ -11,7 +11,7 @@
 1. Cloner le dépot
 2. Se placer a la racine dans le terminal et lancer les commandes suivantes pour créer et lancer l'environnement :
 ```
-python3 -m venv env # ou python -m venv env
+python3 -m venv env # si ça ne fonctionne pas -> python -m venv env
 source env/bin/activate
 ```
 3. Une fois l'environnement lancé, faire la commande suivante pour installer les dépendances :
