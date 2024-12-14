@@ -20,4 +20,6 @@ from django.urls import path,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('moods/', include('moods.urls')),  # Inclusion des URLs de moods
+     # Gestion des utilisateurs : login, logout
+    path('accounts/', include('accounts.urls')),  # Inclure les URLs de l'application accounts
 ]

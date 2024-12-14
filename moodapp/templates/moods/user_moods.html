@@ -1,0 +1,31 @@
+<canvas id="moodChart"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    fetch('/moods/user/')
+        .then(response => response.json())
+        .then(data => {
+            const labels = data.map(entry => new Date(entry.date).toLocaleDateString());
+            const moodNames = data.map(entry => entry.mood__name);
+
+            const ctx = document.getElementById('moodChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Humeur',
+                        data: moodNames,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: { title: { display: true, text: 'Date' } },
+                        y: { title: { display: true, text: 'Humeur' } }
+                    }
+                }
+            });
+        });
+</script>

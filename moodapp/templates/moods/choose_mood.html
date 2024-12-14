@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choisir une humeur</title>
+</head>
+<body>
+    <h1>Choisissez une humeur</h1>
+    <form method="post" action="{% url 'add_user_mood' %}">
+        {% csrf_token %}
+        <select name="mood_id">
+            {% for mood in moods %}
+                <option value="{{ mood.id }}">{{ mood.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <script>
+        // Récupérer les humeurs disponibles
+        fetch('/moods/')
+            .then(response => response.json())
+            .then(data => {
+                const moodSelect = document.getElementById('moodSelect');
+                data.forEach(mood => {
+                    const option = document.createElement('option');
+                    option.value = mood.id;
+                    option.textContent = mood.name;
+                    moodSelect.appendChild(option);
+                });
+            });
+
+        // Enregistrer l'humeur
+        document.getElementById('moodForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+
+            fetch('/moods/add/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
+
