@@ -6,16 +6,18 @@
     <title>Choisir une humeur</title>
 </head>
 <body>
-    <h1>Choisissez une humeur</h1>
-    <form method="post" action="{% url 'add_user_mood' %}">
+    <form method="POST" action="{% url 'add_user_mood' %}">
         {% csrf_token %}
-        <select name="mood_id">
-            {% for mood in moods %}
-                <option value="{{ mood.id }}">{{ mood.name }}</option>
-            {% endfor %}
-        </select>
+        <h3>Choisissez votre humeur :</h3>
+        {% for mood in moods %}
+            <div>
+                <input type="radio" id="mood_{{ mood.id }}" name="mood_id" value="{{ mood.id }}">
+                <label for="mood_{{ mood.id }}">{{ mood.name }}</label>
+            </div>
+        {% endfor %}
         <button type="submit">Enregistrer</button>
     </form>
+    
 
     <script>
         // Récupérer les humeurs disponibles
