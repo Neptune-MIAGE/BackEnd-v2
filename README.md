@@ -27,8 +27,10 @@ deactivate
 ```python
 pip install -r requirements.txt
 ```
-5. Ensuite, se placer dans /moodapp/ et lancer la commande suivante :
+5. Ensuite, se placer dans /moodapp/ et lancer les commandes suivantes :
 ```python
+python manage.py makemigrations
+python manage.py migrate
 python manage.py runserver
 ```
 
