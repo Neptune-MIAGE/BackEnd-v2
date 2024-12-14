@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import Mood, UserMood
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 
 
 # Vue pour afficher la liste des humeurs disponibles
@@ -15,22 +15,28 @@ def list_moods(request):
 @login_required
 def add_user_mood(request):
     if request.method == "POST":
-        # Récupère les données du formulaire
+        # Récupère l'utilisateur connecté et le mood choisi
         mood_id = request.POST.get("mood_id")
-        user = request.user  # Utilisateur connecté
+        if mood_id:
+            mood = get_object_or_404(Mood, id=mood_id)
+            UserMood.objects.create(user=request.user, mood=mood)
 
-        if user.is_authenticated and mood_id:
-            # Crée une nouvelle instance UserMood
-            mood = Mood.objects.get(id=mood_id)
-            UserMood.objects.create(user=user, mood=mood)
-            return redirect('user_moods')  # Redirige vers la liste des moods après soumission
+        # Redirige directement vers la page du graphique des humeurs après enregistrement
+        return redirect('user_moods_page')  # Assure-toi que 'user_moods_page' est bien défini dans urls.py
 
-        return JsonResponse({"error": "Utilisateur non authentifié ou mood invalide."}, status=400)
-
+    # Si la méthode n'est pas POST, retourne une erreur
     return JsonResponse({"error": "Méthode non autorisée."}, status=405)
 
 # Vue pour récupérer les humeurs d’un utilisateur
+
 @login_required
 def user_moods(request):
-    user_moods = UserMood.objects.filter(user=request.user).values("mood__name", "date")
-    return JsonResponse(list(user_moods), safe=False)
+    user_moods = UserMood.objects.filter(user=request.user)
+    moods_data = user_moods.values("mood__name", "date")
+    
+    # Retourne un JSON pour être utilisé par le fichier JavaScript
+    return JsonResponse(list(moods_data), safe=False)
+
+@login_required
+def user_moods_page(request):
+    return render(request, 'moods/user_moods.html')
