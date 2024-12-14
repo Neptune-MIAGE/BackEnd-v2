@@ -31,11 +31,14 @@ def add_user_mood(request):
 
 @login_required
 def user_moods(request):
-    user_moods = UserMood.objects.filter(user=request.user)
-    moods_data = user_moods.values("mood__name", "date")
-    
-    # Retourne un JSON pour être utilisé par le fichier JavaScript
-    return JsonResponse(list(moods_data), safe=False)
+    # Récupérer les 10 dernières humeurs triées par date (ordre décroissant)
+    user_moods = (
+        UserMood.objects.filter(user=request.user)
+        .order_by('-date')[:10]  # Limiter aux 10 derniers en ordre décroissant
+        .values("mood__name", "date")
+    )
+    # Retourner les données JSON
+    return JsonResponse(list(user_moods), safe=False)
 
 @login_required
 def user_moods_page(request):
