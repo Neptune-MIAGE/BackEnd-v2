@@ -38,11 +38,17 @@ python manage.py runserver
 
 Voila toutes les dépendances installées et le serveur lancé à l'adresse http://127.0.0.1:8000/
 
-# Pour Build la doc
+# Pour build et accéder la documentation
 
 Depuis la racine du projet en étant dans un (env) :
 ```
-cd docs
+cd website/docs
 sphinx-apidoc -o . ..
 make html
 ```
+Ensuite pour accéder à la documentation il suffit de se rendre sur :
+
+https://neptune-miage.github.io/BackEnd-v2/
+
+puis "Accès à la documentation"
+
