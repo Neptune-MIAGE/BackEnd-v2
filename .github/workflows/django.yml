@@ -8,7 +8,7 @@ on:                                    # mot clé pour QUAND l'action sera décl
 
 jobs:
   build:
-
+    timeout-minutes: 30
     runs-on: ubuntu-latest        # tourne sur dernière version ubuntu
     permissions:
       contents: read              # lire le contenu (code)
