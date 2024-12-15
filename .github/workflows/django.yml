@@ -8,14 +8,14 @@ on:                                    # mot clé pour QUAND l'action sera décl
 
 jobs:
   build:
-
+    timeout-minutes: 30
     runs-on: ubuntu-latest        # tourne sur dernière version ubuntu
     permissions:
       contents: read              # lire le contenu (code)
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: ["3.13.0"]
 
     steps:
     - uses: actions/checkout@v4
@@ -34,3 +34,5 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test
+      working-directory: ./moodapp
+
