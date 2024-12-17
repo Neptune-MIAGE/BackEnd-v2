@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graphique des Humeurs</title>
-    <!-- Inclure Bootstrap et Chart.js -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    {% load static %}
-    <script src="{% static 'js/moods_chart.js' %}"></script>
-</head>
-<body class="bg-light">
-    <div class="container py-5">
-        <h1 class="text-center mb-4">Vos Humeurs au Fil du Temps</h1>
-        <div class="card p-4 shadow">
-            <!-- Canvas pour afficher le graphique -->
-            <canvas id="testChart" width="400" height="200"></canvas>
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        {% load static %}
+        <script src="{% static 'js/moods_chart.js' %}"></script>
+    </head>
+    <body class="bg-light">
+        <div class="container py-5">
+            <h1 class="text-center mb-4">Vos Humeurs au Fil du Temps</h1>
+            <div class="card p-4 shadow">
+                <!-- Canvas pour afficher le graphique -->
+                <canvas id="testChart" width="400" height="200"></canvas>
+            </div>
         </div>
-    </div>
-</body>
-</html>
+    </body>
+    </html>
+{% endblock %}
