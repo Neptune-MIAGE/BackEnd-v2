@@ -44,8 +44,3 @@ def user_moods(request):
 @login_required
 def user_moods_page(request):
     return render(request, 'moods/user_moods.html')
-
-# exemple ajout vue avec template et envoie d'une variable contenant tout les objets de la classe Classe au template html :
-# def vue(request):
-#     objet = Classe.objects.all()
-#     return render(request, 'moods/sign_in.html', {'objets' : objet })
