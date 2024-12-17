@@ -31,3 +31,9 @@ def add_user_mood(request):
 def user_moods(request, user_id):
     user_moods = UserMood.objects.filter(user_id=user_id).values("mood__name", "date")
     return JsonResponse(list(user_moods), safe=False)
+
+
+# exemple ajout vue avec template et envoie d'une variable contenant tout les objets de la classe Classe au template html :
+# def vue(request):
+#     objet = Classe.objects.all()
+#     return render(request, 'moods/sign_in.html', {'objets' : objet })
