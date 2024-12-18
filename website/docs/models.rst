@@ -1,7 +1,7 @@
-Model Documentation for Hello app
+Model Documentation for Moods app
 ==================================
 
-.. automodule:: hello.models
+.. automodule:: moods.models
    :members:
    :undoc-members:
    :show-inheritance:

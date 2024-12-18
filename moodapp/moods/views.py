@@ -25,7 +25,9 @@ def add_user_mood(request):
 
         # Redirige directement vers la page du graphique des humeurs après enregistrement
         return redirect('user_moods_page')  # Assure-toi que 'user_moods_page' est bien défini dans urls.py
-
+    if request.method == "GET":
+        moods = Mood.objects.all()  # Récupère tous les moods
+        return render(request, 'moods/choose_mood.html', {'moods': moods})
     # Si la méthode n'est pas POST, retourne une erreur
     return JsonResponse({"error": "Méthode non autorisée."}, status=405)
 
@@ -45,6 +47,7 @@ def user_moods(request):
     
     # Retourner les données JSON
     return JsonResponse(user_moods_list, safe=False)
+
 
 @login_required
 def user_moods_page(request):

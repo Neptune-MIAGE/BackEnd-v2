@@ -16,7 +16,7 @@ release = '0.0.1'
 import os
 import sys
 import django
-sys.path.insert(0, os.path.abspath('../moodapp'))
+sys.path.insert(0, os.path.abspath('../../moodapp'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'moodapp.settings'
 django.setup()
 

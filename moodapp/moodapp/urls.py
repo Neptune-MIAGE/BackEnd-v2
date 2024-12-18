@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/moods/', permanent=True)), # Redirige automatiquement vers /moods/ depuis le chemin de base /
     path('admin/', admin.site.urls),
     path('moods/', include('moods.urls')),  # Inclusion des URLs de moods
-     # Gestion des utilisateurs : login, logout
+    
+    # Gestion des utilisateurs : login, logout
     path('accounts/', include('accounts.urls')),  # Inclure les URLs de l'application accounts
 ]
