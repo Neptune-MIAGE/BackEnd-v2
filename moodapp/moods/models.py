@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+
 
 # Modèle utilisateur personnalisé
 class CustomUser(AbstractUser):
@@ -21,7 +23,7 @@ class Mood(models.Model):
 class UserMood(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="user_moods")
     mood = models.ForeignKey(Mood, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=timezone.now)  # Définit une date par défaut
     note = models.TextField(null=True, blank=True)  # Note optionnelle
 
     def __str__(self):
