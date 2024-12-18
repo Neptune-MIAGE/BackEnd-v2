@@ -10,7 +10,7 @@
 # Prérequis 
 
 - Python ou Python3 installé
-- Partie FrontEnd installée
+- Partie FrontEnd installée :
 
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Neptune-MIAGE&repo=FrontEnd&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/Neptune-MIAGE/FrontEnd)
 
