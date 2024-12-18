@@ -31,6 +31,7 @@ def add_user_mood(request):
 
 @login_required
 def user_moods(request):
+    
     # Récupérer les 10 dernières humeurs triées par date (ordre décroissant) test 
     user_moods = (
         UserMood.objects.filter(user=request.user)
