@@ -14,16 +14,15 @@ Avoir Python ou Python3 installé
 # Installation du projet
 
 1. Cloner le dépot
-2. Se placer a la racine dans le terminal et lancer les commandes suivantes pour créer et lancer l'environnement :
+2. Se placer a la racine dans le terminal et lancer la commandes suivante pour créer et lancer l'environnement:
 ```python
-python3 -m venv env # si ça ne fonctionne pas -> python -m venv env
-
 # MacOS & Linux :
+python3 -m venv env
 source env/bin/activate
 
 # Windows :
+python -m venv env
 env\scripts\activate
-
 
 # Pour quitter l'environnement il faut faire la commande :
 deactivate
@@ -32,8 +31,9 @@ deactivate
 ```python
 pip install -r requirements.txt
 ```
-5. Ensuite, se placer dans /moodapp/ et lancer les commandes suivantes :
+5. Ensuite, lancer les commandes suivantes :
 ```python
+cd moodapp
 python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
@@ -51,7 +51,7 @@ make html
 ```
 Ensuite pour accéder à la documentation il suffit de se rendre sur :
 
-https://neptune-miage.github.io/BackEnd-v2/
+https://neptune-miage.github.io/BackEnd/
 
 puis "Accès à la documentation"
 
