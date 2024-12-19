@@ -8,18 +8,18 @@
     <title>Graphique des Humeurs</title>
     <!-- Inclure Bootstrap et Chart.js -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
     {% load static %}
-    <script src="{% static 'js/moods_chart.js' %}"></script>
 </head>
 <body class="bg-light">
     <div class="container py-5">
         <h1 class="text-center mb-4">Vos Humeurs au Fil du Temps</h1>
         <div class="card p-4 shadow">
             <!-- Canvas pour afficher le graphique -->
-            <canvas id="testChart" width="400" height="200"></canvas>
+            <canvas id="moodChart" width="400" height="200"></canvas>
         </div>
     </div>
+    <script src="{% static 'js/moods_chart.js' %}"></script>
 </body>
 </html>
 {% endblock %}

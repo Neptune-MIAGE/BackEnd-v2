@@ -1,3 +1,5 @@
+console.log("Fichier moods_chart.js chargé !");
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch('/moods/user/') // Récupération des données JSON
         .then(response => response.json())
