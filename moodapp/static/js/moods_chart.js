@@ -31,12 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Awesome": "😁"
             };
 
-            // Préparation des données pour le graphique
+            // Préparation des données pour le graphique linéaire
             const labels = data.map(entry => new Date(entry.date).toLocaleDateString());
             const moodValues = data.map(entry => moodMapping[entry.mood__name]);
             const moodColorsList = data.map(entry => moodColors[entry.mood__name]);
 
-            // Création du graphique avec Chart.js
+            // Création du graphique linéaire avec Chart.js
             const ctx = document.getElementById('moodChart');
             if (!ctx) {
                 console.error("Impossible de trouver l'élément 'moodChart' !");
@@ -50,19 +50,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     datasets: [{
                         label: 'Évolution des Humeurs',
                         data: moodValues,
-                        borderColor: '#4CAF50', // Couleur par défaut
+                        borderColor: '#4CAF50',
                         pointBackgroundColor: moodColorsList,
                         pointBorderColor: moodColorsList,
                         pointRadius: 5,
                         pointHoverRadius: 7,
                         segment: {
                             borderColor: (ctx) => {
-                                // Utiliser la couleur du point suivant pour le segment
                                 const nextIndex = ctx.p1DataIndex;
                                 return moodColorsList[nextIndex] || '#4CAF50';
                             }
                         },
-                        tension: 0.4, // Ligne courbée
+                        tension: 0.4,
                         fill: false
                     }]
                 },
@@ -76,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    // Ajout des emojis dans les tooltips
                                     const moodName = Object.keys(moodMapping).find(key => moodMapping[key] === context.raw);
                                     return `${moodEmojis[moodName]} ${moodName}`;
                                 }
@@ -94,8 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
                                     return Object.keys(moodMapping).find(key => moodMapping[key] === value) || "";
                                 }
                             },
-                            min: 1, // Awful
-                            max: 5  // Awesome
+                            min: 1,
+                            max: 5
                         }
                     }
                 }
@@ -107,20 +105,86 @@ document.addEventListener("DOMContentLoaded", () => {
                 return acc;
             }, {});
 
+            const totalMoods = Object.values(moodCounts).reduce((a, b) => a + b, 0);
+
             const moodCounterContainer = document.getElementById('moodCounter');
             if (moodCounterContainer) {
-                // Vider le conteneur avant d'ajouter les éléments
                 moodCounterContainer.innerHTML = '';
-                
                 Object.keys(moodCounts).forEach(mood => {
                     const countElement = document.createElement('div');
                     countElement.innerHTML = `
-                        <div class="text-center mx-3">
+                        <div class="text-center mx-3" style="color: ${moodColors[mood]}">
                             <span style="font-size: 2rem;">${moodEmojis[mood]}</span><br>
                             <strong>${moodCounts[mood]}</strong>
                         </div>
                     `;
                     moodCounterContainer.appendChild(countElement);
+                });
+            }
+
+            // Préparation des données pour le cercle entier
+            const moodArcLabels = Object.keys(moodCounts);
+            const moodArcData = Object.values(moodCounts);
+            const moodArcColors = moodArcLabels.map(label => moodColors[label]);
+
+            // Création du plugin pour afficher le texte au centre
+            const centerTextPlugin = {
+                id: 'centerText',
+                beforeDraw(chart) {
+                    const { ctx, width } = chart;
+                    ctx.save();
+                    ctx.font = 'bold 20px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillStyle = '#333';
+                    ctx.fillText(`${totalMoods}`, width / 2, chart.chartArea.height / 2 + chart.chartArea.top);
+                    ctx.restore();
+                }
+            };
+
+            // Création du graphique en cercle entier
+            const arcCtx = document.getElementById('moodArcChart');
+            if (arcCtx) {
+                new Chart(arcCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: moodArcLabels.map(label => `${moodEmojis[label]} ${label}`),
+                        datasets: [{
+                            label: 'Répartition des Humeurs',
+                            data: moodArcData,
+                            backgroundColor: moodArcColors,
+                            hoverOffset: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const moodName = context.label.split(' ')[1];
+                                        return `${moodEmojis[moodName]} ${moodName}: ${context.raw}`;
+                                    }
+                                }
+                            }
+                        },
+                        layout: {
+                            padding: 10
+                        },
+                        cutout: '50%', // Centre ouvert
+                        aspectRatio: 1
+                    },
+                    plugins: [centerTextPlugin]
                 });
             }
         })
