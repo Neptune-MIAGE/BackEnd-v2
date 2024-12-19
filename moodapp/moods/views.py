@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .models import Mood, UserMood
 from django.shortcuts import redirect, get_object_or_404
+from django.utils import timezone  # Utilisez timezone pour garantir la bonne heure
+
 
 
 # Vue pour afficher la liste des humeurs disponibles
@@ -33,14 +35,18 @@ def add_user_mood(request):
 
 @login_required
 def user_moods(request):
-    # Récupérer les 10 dernières humeurs triées par date (ordre décroissant) test 
+    # Récupérer les 10 derniers humeurs triées par date (ordre croissant)
     user_moods = (
-        UserMood.objects.filter(user=request.user)
-        .order_by('-date')[:10]  # Limiter aux 10 derniers en ordre décroissant
-        .values("mood__name", "date")
+        UserMood.objects.filter(user=request.user)  # Filtrer par utilisateur
+        .order_by('date')[:12]  # Tri par date croissante et limiter aux 10 derniers
+        .values("mood__name", "date")  # Sélectionner les champs d'intérêt
     )
+    
+    # Convertir le QuerySet en une liste pour le renvoyer en JSON
+    user_moods_list = list(user_moods)
+    
     # Retourner les données JSON
-    return JsonResponse(list(user_moods), safe=False)
+    return JsonResponse(user_moods_list, safe=False)
 
 
 @login_required
