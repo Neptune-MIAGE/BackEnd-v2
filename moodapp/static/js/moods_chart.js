@@ -56,6 +56,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 options: {
                     responsive: true,
                     plugins: {
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItem) {
+                                    const index = tooltipItem[0].dataIndex;
+                                    return `Date : ${labels[index]}`;
+                                },
+                                label: function(tooltipItem) {
+                                    const index = tooltipItem.dataIndex;
+                                    const mood = Object.keys(moodMapping).find(key => moodMapping[key] === moodValues[index]);
+                                    return `Humeur : ${mood}`;
+                                }
+                            }
+                        },
                         legend: { display: true, position: 'top' }
                     },
                     scales: {
@@ -66,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             title: { display: true, text: 'Niveau d\'Humeur' },
                             ticks: {
                                 callback: function(value) {
-                                    // Associe les niveaux aux labels des humeurs
                                     return Object.keys(moodMapping).find(key => moodMapping[key] === value) || "";
                                 }
                             },

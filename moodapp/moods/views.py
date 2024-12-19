@@ -4,7 +4,8 @@ from django.shortcuts import render
 from .models import Mood, UserMood
 from django.shortcuts import redirect, get_object_or_404
 from django.utils import timezone  # Utilisez timezone pour garantir la bonne heure
-
+from django.http import JsonResponse
+from .models import UserMood
 
 
 # Vue pour afficher la liste des humeurs disponibles
@@ -52,3 +53,8 @@ def user_moods(request):
 @login_required
 def user_moods_page(request):
     return render(request, 'moods/user_moods.html')
+
+
+def user_moods_json(request):
+    user_moods = UserMood.objects.filter(user=request.user).values('date', 'mood__name', 'note')
+    return JsonResponse(list(user_moods), safe=False)

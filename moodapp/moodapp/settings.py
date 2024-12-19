@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -27,9 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,11 +34,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Custom apps
     'moods',
     'accounts',
+
+    # Third-party apps
+    'django_cron',  # Assurez-vous que django-cron est ajouté ici
     
-    # "apps" Django à ajouter ici, format : "app,"
-    "hello",
+    # Ajoutez d'autres apps que vous souhaitez
+    'hello',
+]
+
+# Déclarez vos classes cron ici
+CRON_CLASSES = [
+    'moods.cron.RecordMoodCronJob',  # Ajoutez la tâche cron définie dans cron.py
+]
+
+# Vous pouvez aussi définir les CRONJOBS dans les paramètres si vous le souhaitez
+CRONJOBS = [
+    ('0 0 8,19 * *', 'moods.cron.RecordMoodCronJob'),  # Exécution à 8h00 et 19h00
 ]
 
 MIDDLEWARE = [
@@ -74,10 +86,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'moodapp.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -85,10 +95,8 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -104,10 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -116,19 +122,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # Assurez-vous que ce chemin est correct
+    BASE_DIR / 'static',  # Assurez-vous que ce chemin est correct
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Custom user model
 AUTH_USER_MODEL = 'moods.CustomUser'
 LOGIN_REDIRECT_URL = '/moods/'
