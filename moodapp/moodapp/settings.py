@@ -34,16 +34,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Custom apps
     'moods',
     'accounts',
 
     # Third-party apps
     'django_cron',  # Assurez-vous que django-cron est ajouté ici
-    
-    # Ajoutez d'autres apps que vous souhaitez
-    'hello',
+    'hello',  # Autre app custom à ajouter
+
 ]
 
 # Déclarez vos classes cron ici

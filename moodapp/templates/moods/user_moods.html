@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{%load static %}
+{% load static %}
 {% block content %}
 <div class="container py-5">
     <h1 class="text-center mb-4">Vos Humeurs au Fil du Temps</h1>
@@ -10,9 +10,22 @@
             <h3 class="card-title text-center">Historique des Humeurs</h3>
         </div>
         <div class="card-body">
-            <canvas id="moodChart" width="400" height="200"></canvas>
+            <canvas id="moodChart" style="width: 100%; height: 400px;"></canvas>
         </div>
     </div>
+    <div class="text-center mt-4">
+        <h3>Compteur des Humeurs</h3>
+        <div id="moodCounter" class="d-flex justify-content-center gap-4">
+            <!-- Les compteurs des humeurs apparaîtront ici dynamiquement -->
+        </div>
+    </div>
+    <div class="text-center mt-5">
+        <h3>Répartition des Humeurs</h3>
+        <div class="d-flex justify-content-center">
+            <canvas id="moodArcChart" style="max-width: 500px; max-height: 250px;"></canvas>
+        </div>
+    </div>
+    
     <script src="{% static 'js/moods_chart.js' %}"></script>
 </div>
 {% endblock %}
