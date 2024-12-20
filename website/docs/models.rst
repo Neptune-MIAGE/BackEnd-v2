@@ -1,4 +1,4 @@
-Model Documentation for Hello app
+Model Documentation for Moods app
 ==================================
 
 .. automodule:: moods.models

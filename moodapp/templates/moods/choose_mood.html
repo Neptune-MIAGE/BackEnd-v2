@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4">Comment vous sentez-vous aujourd'hui ?</h1>
+
+    <!-- Zone pour afficher la suggestion d'humeur -->
+    <div id="suggested-mood" class="alert alert-info text-center d-none">
+        <strong>Suggestion :</strong> Chargement de votre humeur recommandée...
+    </div>
+
+    <form method="post" action="{% url 'add_user_mood' %}" class="p-4 shadow bg-white rounded mx-auto" style="max-width: 500px;">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="mood" class="form-label">Choisissez une humeur :</label>
+            <select name="mood_id" id="mood" class="form-select">
+                {% for mood in moods %}
+                <option value="{{ mood.id }}">{{ mood.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Enregistrer</button>
+    </form>
+</div>
+
+<!-- Inclure le fichier JavaScript -->
+<script src="{% static 'js/mood.js' %}"></script>
+{% endblock %}

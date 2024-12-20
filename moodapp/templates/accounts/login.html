@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- <body class="d-flex justify-content-center align-items-center vh-100 bg-light"> -->
+<div style="justify-content: center; align-items: center; display: flex;">
+    <div class="card shadow p-4" style="width: 24rem;">
+        <h2 class="text-center mb-4">Bienvenue !</h2>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Nom d'utilisateur</label>
+                <input type="text" id="username" name="username" class="form-control"
+                    placeholder="Entrez votre nom d'utilisateur" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" id="password" name="password" class="form-control"
+                    placeholder="Entrez votre mot de passe" required>
+            </div>
+            {% if form.errors %}
+            <div class="alert alert-danger">Nom d'utilisateur ou mot de passe incorrect.</div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'signup' %}"><button class="btn btn-outline-primary w-100">S'inscrire</button></a>
+        </div>
+
+    </div>
+</div>
+<!-- </body> -->
+{% endblock %}
