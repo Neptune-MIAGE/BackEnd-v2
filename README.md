@@ -8,11 +8,14 @@
 # Prérequis 
 
 - Python ou Python3 installé
+<!-- 
 - Partie FrontEnd installée :
 
 [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Neptune-MIAGE&repo=FrontEnd&border_color=7F3FBF&bg_color=0D1117&title_color=C9D1D9&text_color=8B949E&icon_color=7F3FBF)](https://github.com/Neptune-MIAGE/FrontEnd)
 
-# Installation du projet
+-->
+
+# Installation et lancement du projet
 
 1. Cloner le dépot
 
@@ -31,17 +34,4 @@ deactivate
 
 Voila toutes les dépendances installées et le serveur lancé à l'adresse http://127.0.0.1:8000/
 
-# Pour build et accéder la documentation
-
-Depuis la racine du projet en étant dans un (env) :
-```
-cd website/docs
-sphinx-apidoc -o . ..
-make html
-```
-Ensuite pour accéder à la documentation il suffit de se rendre sur :
-
-https://neptune-miage.github.io/BackEnd/
-
-puis "Accès à la documentation"
 
