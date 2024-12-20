@@ -25,7 +25,7 @@ def add_user_mood(request):
             UserMood.objects.create(user=request.user, mood=mood)
 
         # Redirige directement vers la page du graphique des humeurs après enregistrement
-        return redirect('user_moods_page')  # Assure-toi que 'user_moods_page' est bien défini dans urls.py
+        return redirect('user_moods_page')  
     if request.method == "GET":
         moods = Mood.objects.all()  # Récupère tous les moods
         return render(request, 'moods/choose_mood.html', {'moods': moods})

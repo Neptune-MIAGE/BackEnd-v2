@@ -1,48 +1,58 @@
 import requests
-from datetime import datetime
+from .models import Mood
 
-def get_weather_condition():
-    # API météo pour récupérer les conditions météo actuelles
-    API_KEY = "VOTRE_CLÉ_API"
-    CITY = "Paris"  # Changez selon vos besoins
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric"
-
-    response = requests.get(url)
-    if response.status_code == 200:
-        data = response.json()
-        weather = data['weather'][0]['main']  # Exemple : "Rain", "Clear", "Clouds"
-        return weather
-    return "Unknown"
-
-def calculate_mood_score(context, weather):
+def get_weather_condition(latitude, longitude):
     """
-    Calcule un score basé sur le contexte (matin/soir) et la météo.
+    Récupère la condition météo actuelle en fonction des coordonnées GPS.
     """
-    context_scores = {"morning": 5, "evening": -5}
-    weather_scores = {
-        "Clear": 10,    # Ensoleillé
-        "Rain": -15,    # Pluie
-        "Clouds": 0,    # Nuageux
-        "Snow": -10,    # Neige
-        "Unknown": 0    # Par défaut
+    try:
+        url = f"https://api.open-meteo.com/v1/forecast?latitude={latitude}&longitude={longitude}&current_weather=true"
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            current_weather = data.get('current_weather', {})
+            return {
+                "weather_code": current_weather.get("weathercode"),
+                "temperature": current_weather.get("temperature"),
+                "windspeed": current_weather.get("windspeed")
+            }
+    except Exception as e:
+        print(f"Erreur lors de la récupération des données météo : {e}")
+    return {"weather_code": None, "temperature": None, "windspeed": None}
+
+def weather_to_score(weather_code):
+    """
+    Convertit le code météo en score pour calculer l'humeur.
+    """
+    weather_score_mapping = {
+        0: 10,  # Ciel clair
+        1: 5,   # Principalement clair
+        2: 0,   # Partiellement nuageux
+        3: -5,  # Nuageux
+        45: -10,  # Brouillard
+        48: -10,  # Brouillard givrant
+        51: -15,  # Bruine légère
+        61: -15,  # Pluie légère
+        80: -20,  # Averse de pluie légère
+        # Ajoutez d'autres codes si nécessaire
     }
+    return weather_score_mapping.get(weather_code, 0)  # Score par défaut : 0
 
-    context_score = context_scores.get(context, 0)
-    weather_score = weather_scores.get(weather, 0)
-
-    return context_score + weather_score
-
-def determine_mood_from_score(score):
+def get_mood_from_score(score):
     """
-    Détermine une humeur basée sur le score.
+    Récupère l'humeur correspondante en fonction du score.
     """
-    if score >= 15:
-        return "Awesome"
-    elif score >= 5:
-        return "Happy"
-    elif score >= -5:
-        return "Neutral"
-    elif score >= -15:
-        return "Sad"
-    else:
-        return "Awful"
+    try:
+        if score > 15:
+            return Mood.objects.get(name="Awesome")
+        elif score > 5:
+            return Mood.objects.get(name="Happy")
+        elif score > -5:
+            return Mood.objects.get(name="Neutral")
+        elif score > -15:
+            return Mood.objects.get(name="Sad")
+        else:
+            return Mood.objects.get(name="Awful")
+    except Mood.DoesNotExist:
+        print("Erreur : Mood correspondant introuvable.")
+        return None

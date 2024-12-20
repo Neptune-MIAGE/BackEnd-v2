@@ -39,20 +39,9 @@ INSTALLED_APPS = [
     'moods',
     'accounts',
 
-    # Third-party apps
-    'django_cron',  # Assurez-vous que django-cron est ajouté ici
+
     'hello',  # Autre app custom à ajouter
 
-]
-
-# Déclarez vos classes cron ici
-CRON_CLASSES = [
-    'moods.cron.RecordMoodCronJob',  # Ajoutez la tâche cron définie dans cron.py
-]
-
-# Vous pouvez aussi définir les CRONJOBS dans les paramètres si vous le souhaitez
-CRONJOBS = [
-    ('0 0 8,19 * *', 'moods.cron.RecordMoodCronJob'),  # Exécution à 8h00 et 19h00
 ]
 
 MIDDLEWARE = [
