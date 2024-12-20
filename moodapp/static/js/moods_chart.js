@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
             const moodColors = {
-                "Awful": '#E53935',     // Rouge
-                "Sad": '#FF7043',       // Orange
-                "Neutral": '#FFCA28',   // Jaune
-                "Happy": '#4CAF50',     // Vert
-                "Awesome": '#81C784'    // Vert clair
+                "Awful": '#FFB3BA',     // Rouge pastel
+                "Sad": '#FFDFBA',       // Orange pastel
+                "Neutral": '#FFFFBA',   // Jaune pastel
+                "Happy": '#BAFFC9',     // Vert pastel
+                "Awesome": '#BAE1FF'    // Bleu pastel
             };
 
             const moodEmojis = {
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     datasets: [{
                         label: 'Évolution des Humeurs',
                         data: moodValues,
-                        borderColor: '#4CAF50',
+                        borderColor: '#BAFFC9',
                         pointBackgroundColor: moodColorsList,
                         pointBorderColor: moodColorsList,
                         pointRadius: 5,
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         segment: {
                             borderColor: (ctx) => {
                                 const nextIndex = ctx.p1DataIndex;
-                                return moodColorsList[nextIndex] || '#4CAF50';
+                                return moodColorsList[nextIndex] || '#BAFFC9';
                             }
                         },
                         tension: 0.4,
