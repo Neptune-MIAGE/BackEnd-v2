@@ -41,8 +41,6 @@ INSTALLED_APPS = [
 
     # Third-party apps
     'django_cron',  # Assurez-vous que django-cron est ajouté ici
-    'hello',  # Autre app custom à ajouter
-
 ]
 
 # Déclarez vos classes cron ici
