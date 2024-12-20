@@ -38,10 +38,6 @@ INSTALLED_APPS = [
     # Custom apps
     'moods',
     'accounts',
-
-
-    'hello',  # Autre app custom à ajouter
-
 ]
 
 MIDDLEWARE = [
