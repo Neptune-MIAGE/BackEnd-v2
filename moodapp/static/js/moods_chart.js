@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             console.log("Données récupérées :", data);
 
-            // Mapping des niveaux d'humeur, couleurs et emojis
+            // Mapping des niveaux d'humeur, couleurs, emojis
             const moodMapping = {
                 "Awful": 1,
                 "Sad": 2,
