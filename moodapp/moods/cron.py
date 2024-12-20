@@ -5,7 +5,7 @@ import requests
 
 
 class RecordMoodCronJob(CronJobBase):
-    RUN_EVERY_MINS = 720  # Deux fois par jour (12 heures)
+    RUN_EVERY_MINS = 720  # Deux fois par jour (toutes les 12 heures)
 
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'moods.record_mood_cron'  # Identifiant unique
